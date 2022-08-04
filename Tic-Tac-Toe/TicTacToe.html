@@ -1,0 +1,395 @@
+<!--Tic Tac Toe Game-->
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Tic Tac Toe</title>
+        <link rel="icon" href="tic-tac-toe-background.png" type="image/png"/>
+        <style>
+            body {
+                background-image: url("tic-tac-toe-background.png");
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+                color: #FFF;
+                font-size: 40px;
+                
+            }
+
+            #footer {
+                font-size: 15px;
+                color: #0F0;
+            }
+
+            #game-board {
+                
+                font-size: 25px;
+                min-height: 400px;
+                width: 70%;
+                background-color: rgba(0, 0, 0, .1);
+                display: grid;
+                transform: translate(20%, -5%);
+                grid-template-columns: 30% 30% 30%;
+                grid-template-rows: 30% 30% 30%;
+                grid-gap: 5%;
+                grid-template-areas:
+                    "ul uc ur"
+                    "ml mc mr"
+                    "ll lc lr" ;
+
+            }
+
+            #reset{
+                font-size: 20px;
+                margin: 20px;
+                padding: 10px;
+            }
+
+            #space{background: #000; grid-area: spc;}
+            #top-left{ grid-area: ul;}
+            #top-center{ grid-area: uc;}
+            #top-right{ grid-area: ur;}
+            #mid-left{ grid-area: ml;}
+            #mid-center{ grid-area: mc;}
+            #mid-right{ grid-area: mr;}
+            #low-left{ grid-area: ll;}
+            #low-center{ grid-area: lc;}
+            #low-right{ grid-area: lr;}
+
+            .tile {
+                background: #FFF; 
+                display:flex; font-size: 
+                80px; align-items: center; 
+                justify-content: center;
+                color: #000;
+            }
+
+            .tile:hover {background: rgba(100, 100, 100, 0.4);}
+        </style>
+    </head>
+    <body>
+        <header id="heading" align="center"> Welcome to TIC TAC TOE </header>
+        <button id="reset" onclick="reset()"> Reset </button>
+        <p id="turn" align="center"> X's turn </p>
+        <div id="game-board" align="center">
+            <div id="top-left" class="tile" onclick="topLeft()"> - </div>
+            <div id="top-center" class="tile" onclick="topCenter()"> - </div>
+            <div id="top-right" class="tile" onclick="topRight()"> - </div>
+            <div id="mid-left" class="tile" onclick="midLeft()"> - </div>
+            <div id="mid-center" class="tile" onclick="midCenter()"> - </div>
+            <div id="mid-right" class="tile" onclick="midRight()"> - </div>
+            <div id="low-left" class="tile" onclick="lowLeft()"> - </div>
+            <div id="low-center" class="tile" onclick="lowCenter()"> - </div>
+            <div id="low-right" class="tile" onclick="lowRight()"> - </div>
+        </div>
+        
+        <script>
+            var playerTurn =  document.getElementById("turn");
+            var disPlay = document.getElementById("heading");
+            var currentPlayer = 1;
+            var game = 1;
+            var tl = 0;
+            var tc = 0;
+            var tr = 0;
+            var ml = 0;
+            var mc = 0;
+            var mr = 0;
+            var ll = 0;
+            var lc = 0;
+            var lr = 0;
+
+            function topLeft() {
+                var curSpot = document.getElementById("top-left");
+                if (currentPlayer == 1) {
+                    curSpot.innerHTML = "X";
+                    currentPlayer++;
+                    playerTurn.innerHTML = "O's trun";
+                    tl = 1;
+                    checkWinner();
+                }
+                else {
+                    curSpot.innerHTML = "O";
+                    currentPlayer--;
+                    playerTurn.innerHTML = "X's trun";
+                    tl = 2;
+                    checkWinner();
+                }
+                alreadyClicked("top-left");
+            }
+
+            function topCenter() {
+                var curSpot = document.getElementById("top-center");
+                if (currentPlayer == 1) {
+                    curSpot.innerHTML = "X";
+                    currentPlayer++;
+                    playerTurn.innerHTML = "O's trun";
+                    tc = 1;
+                    checkWinner();
+                }
+                else {
+                    curSpot.innerHTML = "O";
+                    currentPlayer--;
+                    playerTurn.innerHTML = "X's trun";
+                    tc = 2;
+                    checkWinner();
+                }
+                alreadyClicked("top-center");
+            }
+
+            function topRight() {
+                var curSpot = document.getElementById("top-right");
+                if (currentPlayer == 1) {
+                    curSpot.innerHTML = "X";
+                    currentPlayer++;
+                    playerTurn.innerHTML = "O's trun";
+                    tr = 1;
+                    checkWinner();
+                }
+                else {
+                    curSpot.innerHTML = "O";
+                    currentPlayer--;
+                    playerTurn.innerHTML = "X's trun";
+                    tr = 2;
+                    checkWinner();
+                }
+                alreadyClicked("top-right");
+            }
+
+            function midLeft() {
+                var curSpot = document.getElementById("mid-left");
+                if (currentPlayer == 1) {
+                    curSpot.innerHTML = "X";
+                    currentPlayer++;
+                    playerTurn.innerHTML = "O's trun";
+                    ml = 1;
+                    checkWinner();
+                }
+                else {
+                    curSpot.innerHTML = "O";
+                    currentPlayer--;
+                    playerTurn.innerHTML = "X's trun";
+                    ml = 2;
+                    checkWinner();
+                }
+                alreadyClicked("mid-left");
+            }
+
+            function midCenter() {
+                var curSpot = document.getElementById("mid-center");
+                if (currentPlayer == 1) {
+                    curSpot.innerHTML = "X";
+                    currentPlayer++;
+                    playerTurn.innerHTML = "O's trun";
+                    mc = 1;
+                    checkWinner();
+                }
+                else {
+                    curSpot.innerHTML = "O";
+                    currentPlayer--;
+                    playerTurn.innerHTML = "X's trun";
+                    mc = 2;
+                    checkWinner();
+                }
+                alreadyClicked("mid-center");
+            }
+
+            function midRight() {
+                var curSpot = document.getElementById("mid-right");
+                if (currentPlayer == 1) {
+                    curSpot.innerHTML = "X";
+                    currentPlayer++;
+                    playerTurn.innerHTML = "O's trun";
+                    mr = 1;
+                    checkWinner();
+                    
+                }
+                else {
+                    curSpot.innerHTML = "O";
+                    currentPlayer--;
+                    playerTurn.innerHTML = "X's trun";
+                    mr = 2;
+                    checkWinner();
+                }
+                alreadyClicked("mid-right");
+
+            }
+            function lowLeft() {
+                var curSpot = document.getElementById("low-left");
+                if (currentPlayer == 1) {
+                    curSpot.innerHTML = "X";
+                    currentPlayer++;
+                    playerTurn.innerHTML = "O's trun";
+                    ll = 1;
+                    checkWinner();
+                }
+                else {
+                    curSpot.innerHTML = "O";
+                    currentPlayer--;
+                    playerTurn.innerHTML = "X's trun";
+                    ll = 2;
+                    checkWinner();
+                }
+                alreadyClicked("low-left");
+            }
+
+            function lowCenter() {
+                var curSpot = document.getElementById("low-center");
+                if (currentPlayer == 1) {
+                    curSpot.innerHTML = "X";
+                    currentPlayer++;
+                    playerTurn.innerHTML = "O's trun";
+                    lc = 1;
+                    checkWinner();
+                }
+                else {
+                    curSpot.innerHTML = "O";
+                    currentPlayer--;
+                    playerTurn.innerHTML = "X's trun";
+                    lc = 2;
+                    checkWinner();
+                }
+                alreadyClicked("low-center");
+            }
+
+            function lowRight() {
+                var curSpot = document.getElementById("low-right");
+                if (currentPlayer == 1) {
+                    curSpot.innerHTML = "X";
+                    currentPlayer++;
+                    playerTurn.innerHTML = "O's trun";
+                    lr = 1;
+                    checkWinner();
+                }
+                else {
+                    curSpot.innerHTML = "O";
+                    currentPlayer--;
+                    playerTurn.innerHTML = "X's trun";
+                    lr = 2;
+                    checkWinner();
+                }
+                alreadyClicked("low-right");
+            }
+
+            function alreadyClicked(id) {
+                var clicked = document.getElementById(id);
+                clicked.onclick = "no";
+            }
+
+            function checkWinner() {
+
+                //horizontal top row
+                if (tl == 1 && tc == 1 && tr == 1 ) {
+                    playerTurn.innerHTML = " The X's Have Won!!!";
+                    allOff();
+                }
+                if (tl == 2 && tc == 2 && tr == 2 ) {
+                    playerTurn.innerHTML = " The O's Have Won!!!";
+                    allOff();
+                }
+
+                //horizontal mid row
+                if (ml == 1 && mc == 1 && mr == 1 ) {
+                    playerTurn.innerHTML = " The X's Have Won!!!";
+                    allOff();
+                }
+                if (ml == 2 && mc == 2 && mr == 2 ) {
+                    playerTurn.innerHTML = " The O's Have Won!!!";
+                    allOff();
+                }
+
+                //horizontal low row
+                if (ll == 1 && lc == 1 && lr == 1 ) {
+                    playerTurn.innerHTML = " The X's Have Won!!!";
+                    allOff();
+                }
+                if (ll == 2 && lc == 2 && lr == 2 ) {
+                    playerTurn.innerHTML = " The O's Have Won!!!";
+                    allOff();
+                }
+
+                //vertical left 
+                if (tl == 1 && ml == 1 && ll == 1 ) {
+                    playerTurn.innerHTML = " The X's Have Won!!!";
+                    allOff();
+                }
+                if (tl == 2 && ml == 2 && ll == 2 ) {
+                    playerTurn.innerHTML = " The O's Have Won!!!";
+                    allOff();
+                }
+
+                // vertical center
+                if (tc == 1 && mc == 1 && lc == 1 ) {
+                    playerTurn.innerHTML = " The X's Have Won!!!";
+                    allOff();
+                }
+                if (tc == 2 && mc == 2 && lc == 2 ) {
+                    playerTurn.innerHTML = " The O's Have Won!!!";
+                    allOff();
+                }
+
+                // vertical right
+                if (tr == 1 && mr == 1 && lr == 1 ) {
+                    playerTurn.innerHTML = " The X's Have Won!!!";
+                    allOff();
+                }
+                if (tr == 2 && mr == 2 && lr == 2 ) {
+                    playerTurn.innerHTML = " The O's Have Won!!!";
+                    allOff();
+                }
+
+                // diagonal right slope
+                if (tl == 1 && mc == 1 && lr == 1 ) {
+                    playerTurn.innerHTML = " The X's Have Won!!!";
+                    allOff();
+                }
+                if (tl == 2 && mc == 2 && lr == 2 ) {
+                    playerTurn.innerHTML = " The O's Have Won!!!";
+                    allOff();
+                }
+
+                // diagonal left slope
+                if (tr == 1 && mc == 1 && ll == 1 ) {
+                    playerTurn.innerHTML = " The X's Have Won!!!";
+                    allOff();
+                }
+                if (tr == 2 && mc == 2 && ll == 2 ) {
+                    playerTurn.innerHTML = " The O's Have Won!!!";
+                    allOff();
+                }
+
+                if (game != 0 && tl != 0 && tc != 0 && tr != 0 && ml != 0 && mc != 0 && mr != 0 && ll != 0 && lc != 0 && lr != 0) {
+                    playerTurn.innerHTML = " Looks like a draw ";
+                    gameOver();
+                }
+
+
+            }
+
+            function allOff() {
+                alreadyClicked("top-left");
+                alreadyClicked("top-center");
+                alreadyClicked("top-right");
+                alreadyClicked("mid-left");
+                alreadyClicked("mid-center");
+                alreadyClicked("mid-right");
+                alreadyClicked("low-left");
+                alreadyClicked("low-center");
+                alreadyClicked("low-right");
+                game = 0;
+                gameOver();
+            }
+
+            function gameOver() {
+                disPlay.innerHTML = " Game Over "
+            }
+
+            function reset() {
+                location.reload();
+
+
+            }
+        </script>
+        <br/><br/>
+        <footer id="footer" align="center"> by Jason Jacobs</footer>
+    </body>
+</html>
